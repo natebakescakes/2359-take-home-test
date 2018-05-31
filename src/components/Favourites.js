@@ -4,7 +4,7 @@ import ImageGrid from './ImageGrid';
 
 const Favourites = (props) => {
     return (
-        <ImageGrid handleImageClick={() => { return }} imageResults={props.favouriteImages}/>
+        <ImageGrid handleImageClick={props.handleImageClick} imageResults={props.favouriteImages}/>
     );
 }
 

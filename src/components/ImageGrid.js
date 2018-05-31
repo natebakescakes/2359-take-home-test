@@ -2,7 +2,13 @@ import React from 'react';
 
 const ImageBox = (props) => {
     return (
-        <img className="img" id={props.id} alt={props.title} src={props.images.fixed_height_still.url} onClick={props.handleImageClick} />
+        <img 
+            className="img" 
+            id={props.id} 
+            alt={props.title} 
+            src={props.images.fixed_height_still.url} 
+            onClick={props.handleImageClick}
+        />
     );
 }
 

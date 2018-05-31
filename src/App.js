@@ -30,7 +30,11 @@ class App extends React.Component {
         axios.get(apiUrl)
         .then(resp => {
             this.setState((prevState) => ({ 
-                imageResults: resp.data.data,
+                // Add favourited boolean to all image objects
+                imageResults: resp.data.data.map(image => {
+                    image.favourited = false;
+                    return image;
+                }),
                 resultSet: prevState.resultSet + 1,  
             }));
         });
@@ -42,7 +46,10 @@ class App extends React.Component {
         axios.get(apiUrl)
         .then(resp => {
             this.setState((prevState) => ({ 
-                imageResults: prevState.imageResults.concat(resp.data.data),
+                imageResults: prevState.imageResults.concat(resp.data.data.map(image => {
+                    image.favourited = false;
+                    return image;
+                })),
                 resultSet: prevState.resultSet + 1,  
             }));
         });
@@ -55,16 +62,19 @@ class App extends React.Component {
 
     // Handles both Like and Unlike
     handleImageClick = (e) => {
-        let imageId = e.target.id;
+        // let imageId = e.target.id;
         
-        e.preventDefault();
+        // e.preventDefault();
 
-        // If selected image is found in favouriteImages, remove that image, else add it to favouriteImages
-        this.setState((prevState) => ({
-            favouriteImages: prevState.favouriteImages.filter(image => image.id === imageId).length > 0 ?
-                prevState.favouriteImages.filter(image => image.id !== imageId) :
-                prevState.favouriteImages.concat(prevState.imageResults.filter(image => image.id === imageId)),
-        }));
+        // // If selected image is found in favouriteImages, remove that image, else add it to favouriteImages
+        // this.setState((prevState) => ({
+        //     imageResults: (() => {
+        //         prevState.imageResults.find(image => image.Id === imageId).favourited = !prevState.imageResults.find(image => image.Id === imageId).favourited;
+        //         return prevState.imageResults;
+        //     })(),
+        // }));
+
+        return;
     };
 
     render() {
@@ -87,7 +97,9 @@ class App extends React.Component {
                             handleFetchMore={this.handleFetchMore}
                             handleQuerySubmit={this.handleQuerySubmit}
                             imageResults={this.state.imageResults} />} />
-                        <Route path="/favourites" render={() => <Favourites favouriteImages={this.state.favouriteImages} />} />
+                        <Route path="/favourites" render={() => <Favourites 
+                            favouriteImages={this.state.favouriteImages}
+                            handleImageClick={this.handleImageClick} />} />
                     </div>
                 </HashRouter>
 
