@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import {
     Route,
@@ -13,8 +14,24 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            query: "",
+            imageResults: [],
             favouriteImageIds: [],
         };
+    }
+
+    handleTextChange = (e) => {
+        e.preventDefault();
+        this.setState({ query: e.target.value });
+
+        return;
+    };
+
+    searchGiphy = (props) => {
+        axios.get("https://api.giphy.com/v1/gifs/search?api_key=" + process.env.REACT_APP_GIPHY + "&q=" + this.state.query + "&limit=20&offset=20&rating=G&lang=en")
+        .then(resp => {
+            this.setState({ imageResults: resp.data.data });
+        });
     }
 
     handleImageClick = (e) => {
@@ -30,12 +47,21 @@ class App extends React.Component {
         return (
             <div>
                 <Nav />
-
                 <HashRouter>
                     <div className="content col-lg-5">
-                        <Route exact path="/" component={() => <Search handleImageClick={this.handleImageClick}/>} />
-                        <Route path="/search" component={() => <Search handleImageClick={this.handleImageClick}/>} />
-                        <Route path="/favourites" component={() => <Favourites favouriteImageIds={this.state.favouriteImageIds} />} />
+                        <Route exact path="/" render={() => <Search
+                            query={this.state.query} 
+                            handleImageClick={this.handleImageClick} 
+                            handleTextChange={this.handleTextChange}
+                            handleQuerySubmit={this.searchGiphy}
+                            imageResults={this.state.imageResults} />} />
+                        <Route path="/search" render={() => <Search 
+                            query={this.state.query} 
+                            handleImageClick={this.handleImageClick} 
+                            handleTextChange={this.handleTextChange}
+                            handleQuerySubmit={this.searchGiphy}
+                            imageResults={this.state.imageResults} />} />
+                        <Route path="/favourites" render={() => <Favourites favouriteImageIds={this.state.favouriteImageIds} />} />
                     </div>
                 </HashRouter>
 
