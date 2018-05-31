@@ -16,7 +16,7 @@ class App extends React.Component {
         this.state = {
             query: "",
             imageResults: [],
-            favouriteImageIds: [],
+            favouriteImages: [],
         };
     }
 
@@ -39,7 +39,7 @@ class App extends React.Component {
         
         e.preventDefault();
         this.setState((prevState) => ({
-            favouriteImageIds: prevState.favouriteImageIds.concat(imageId),
+            favouriteImages: prevState.favouriteImages.concat(prevState.imageResults.filter(image => image.id === imageId)),
         }));
     };
 
@@ -61,7 +61,7 @@ class App extends React.Component {
                             handleTextChange={this.handleTextChange}
                             handleQuerySubmit={this.searchGiphy}
                             imageResults={this.state.imageResults} />} />
-                        <Route path="/favourites" render={() => <Favourites favouriteImageIds={this.state.favouriteImageIds} />} />
+                        <Route path="/favourites" render={() => <Favourites favouriteImages={this.state.favouriteImages} />} />
                     </div>
                 </HashRouter>
 
