@@ -17,29 +17,53 @@ class App extends React.Component {
             query: "",
             imageResults: [],
             favouriteImages: [],
+            resultSet: 0,
         };
     }
 
-    handleTextChange = (e) => {
-        e.preventDefault();
-        this.setState({ query: e.target.value });
+    // Change this to modify number of images returned
+    static resultSize = 8;
 
-        return;
-    };
+    handleQuerySubmit = (e) => {
+        let apiUrl = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY}&q=${this.state.query}&limit=${App.resultSize}&offset=${this.state.resultSet * App.resultSize}&rating=G&lang=en`;
 
-    searchGiphy = (props) => {
-        axios.get("https://api.giphy.com/v1/gifs/search?api_key=" + process.env.REACT_APP_GIPHY + "&q=" + this.state.query + "&limit=20&offset=20&rating=G&lang=en")
+        axios.get(apiUrl)
         .then(resp => {
-            this.setState({ imageResults: resp.data.data });
+            this.setState((prevState) => ({ 
+                imageResults: resp.data.data,
+                resultSet: prevState.resultSet + 1,  
+            }));
         });
     }
 
+    handleFetchMore = (e) => {
+        let apiUrl = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY}&q=${this.state.query}&limit=${App.resultSize}&offset=${this.state.resultSet * App.resultSize}&rating=G&lang=en`;
+
+        axios.get(apiUrl)
+        .then(resp => {
+            this.setState((prevState) => ({ 
+                imageResults: prevState.imageResults.concat(resp.data.data),
+                resultSet: prevState.resultSet + 1,  
+            }));
+        });
+    }
+    
+    handleTextChange = (e) => {
+        e.preventDefault();
+        this.setState({ query: e.target.value });
+    };
+
+    // Handles both Like and Unlike
     handleImageClick = (e) => {
         let imageId = e.target.id;
         
         e.preventDefault();
+
+        // If selected image is found in favouriteImages, remove that image, else add it to favouriteImages
         this.setState((prevState) => ({
-            favouriteImages: prevState.favouriteImages.concat(prevState.imageResults.filter(image => image.id === imageId)),
+            favouriteImages: prevState.favouriteImages.filter(image => image.id === imageId).length > 0 ?
+                prevState.favouriteImages.filter(image => image.id !== imageId) :
+                prevState.favouriteImages.concat(prevState.imageResults.filter(image => image.id === imageId)),
         }));
     };
 
@@ -53,13 +77,15 @@ class App extends React.Component {
                             query={this.state.query} 
                             handleImageClick={this.handleImageClick} 
                             handleTextChange={this.handleTextChange}
-                            handleQuerySubmit={this.searchGiphy}
+                            handleFetchMore={this.handleFetchMore}
+                            handleQuerySubmit={this.handleQuerySubmit}
                             imageResults={this.state.imageResults} />} />
                         <Route path="/search" render={() => <Search 
                             query={this.state.query} 
                             handleImageClick={this.handleImageClick} 
                             handleTextChange={this.handleTextChange}
-                            handleQuerySubmit={this.searchGiphy}
+                            handleFetchMore={this.handleFetchMore}
+                            handleQuerySubmit={this.handleQuerySubmit}
                             imageResults={this.state.imageResults} />} />
                         <Route path="/favourites" render={() => <Favourites favouriteImages={this.state.favouriteImages} />} />
                     </div>

@@ -23,6 +23,16 @@ class Search extends React.Component {
                 </form>
 
                 <ImageGrid handleImageClick={this.props.handleImageClick} imageResults={this.props.imageResults} />
+
+                {this.props.imageResults.length > 0 &&
+                    <form className="form-group">
+                        <input 
+                            type="submit"
+                            className="btn btn-primary"
+                            onClick={this.props.handleFetchMore} 
+                            value="Fetch More" />
+                    </form>
+                }
             </div>
         );
     }
