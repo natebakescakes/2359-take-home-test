@@ -72,9 +72,9 @@ class App extends React.Component {
                 if (image.id === imageId) image.favourited = !image.favourited;
                 return image;
             }),
-            // favouriteImages: prevState.favouritedImages.filter(image => image.id === imageId).length > 0 ?
-            //     prevState.imageResults.filter(image => image.id === imageId) :
-            //     prevState.favouritedImages.filter(image => image.id !== imageId),
+            favouriteImages: prevState.favouriteImages.filter(image => image.id === imageId).length > 0 ?
+                prevState.favouriteImages.filter(image => image.id !== imageId) :
+                prevState.favouriteImages.concat(prevState.imageResults.filter(image => image.id === imageId)),
         }));
 
         return;
