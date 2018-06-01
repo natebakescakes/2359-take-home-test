@@ -4,9 +4,17 @@ import axios from 'axios';
 import {
     Route,
     HashRouter,
+    NavLink,
 } from "react-router-dom";
 
-import Nav from "./components/Nav";
+import {
+    Container,
+    Navbar,
+    Nav,
+    NavItem,
+    PageHeader,
+} from 'react-bootstrap';
+
 import Search from "./components/Search";
 import Favourites from "./components/Favourites";
 
@@ -83,9 +91,18 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Nav />
                 <HashRouter>
-                    <div className="content col-lg-5">
+                    <Navbar>
+                        <Navbar.Header><Navbar.Brand>Gallereasy</Navbar.Brand></Navbar.Header>
+                        <Nav bsStyle="pills">
+                            <NavItem><NavLink to="/search">Search</NavLink></NavItem>
+                            <NavItem><NavLink to="/favourites">Favourites</NavLink></NavItem>
+                        </Nav>
+                    </Navbar>
+                </HashRouter>
+
+                <HashRouter>
+                    <div className="content">
                         <Route exact path="/" render={() => <Search
                             query={this.state.query} 
                             handleImageClick={this.handleImageClick} 
@@ -106,7 +123,7 @@ class App extends React.Component {
                     </div>
                 </HashRouter>
 
-                <div className="container footer">
+                <div className="container-fluid footer">
                     <span className="text-muted text-left">Gallereasy POC web app</span>
                     <span className="text-muted text-right">2359 Media</span>
                 </div>
