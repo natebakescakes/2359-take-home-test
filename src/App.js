@@ -8,11 +8,12 @@ import {
 } from "react-router-dom";
 
 import {
-    Container,
+    Col,
+    Grid,
     Navbar,
     Nav,
     NavItem,
-    PageHeader,
+    Row,
 } from 'react-bootstrap';
 
 import Search from "./components/Search";
@@ -123,10 +124,19 @@ class App extends React.Component {
                     </div>
                 </HashRouter>
 
-                <Navbar>
-                    <Navbar.Text>Gallereasy POC web app</Navbar.Text>
-                    <Navbar.Text pullRight>2359 Media</Navbar.Text>
-                </Navbar>
+                <Grid fluid style={{
+                    backgroundColor: '#DDDDDD',
+                    verticalAlign: 'middle',
+                    lineHeight: '50px',
+                }}>
+                    <Row style={{
+                        width: '75%',
+                        margin: 'auto',
+                    }}>
+                        <span class="text-muted">Gallereasy POC web app</span>
+                        <span class="pull-right text-muted">2359 Media</span>
+                    </Row>
+                </Grid>
             </div>
         );
     }

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {
-    Grid,
     Row,
     Col,
     ProgressBar,
@@ -17,7 +16,7 @@ class ImageBox extends React.Component {
                 <Thumbnail> 
                     <Img
                         style={{
-                            'object-fit': 'cover',
+                            objectFit: 'cover',
                             width: "100%",
                             height: "200px",
                         }}
@@ -26,7 +25,8 @@ class ImageBox extends React.Component {
                         alt={this.props.title}
                         src={this.props.images.fixed_height_still.url}
                         onClick={this.props.handleImageClick}
-                        loader={<ProgressBar now={60} active/>}
+                        // TODO: Bind progress to axios onDownloadProgress config
+                        loader={<ProgressBar now={Math.random() * 100} active/>}
                         thumbnail="true"
                     />
                 </Thumbnail>
@@ -38,7 +38,11 @@ class ImageBox extends React.Component {
 const ImageGrid = (props) => {
     return (
         <Row>
-            {props.imageResults.map(image => <ImageBox handleImageClick={props.handleImageClick} key={image.id} {...image} />)}
+            {props.imageResults.map(image => <ImageBox 
+                handleImageClick={props.handleImageClick} 
+                key={image.id} 
+                {...image} 
+            />)}
         </Row>
     );
 }
