@@ -1,22 +1,33 @@
 import React from 'react';
 
+import {
+    Grid,
+    Row,
+    Col,
+    Thumbnail,
+} from 'react-bootstrap';
+
 const ImageBox = (props) => {
     return (
-        <img 
-            className="img" 
-            id={props.id} 
-            alt={props.title} 
-            src={props.images.fixed_height_still.url} 
-            onClick={props.handleImageClick}
-        />
+        <Col sm={6} md={4} lg={3}>
+            <Thumbnail 
+                className="img" 
+                id={props.id} 
+                alt={props.id} 
+                src={props.images.fixed_height_still.url} 
+                onClick={props.handleImageClick}
+            />
+        </Col>
     );
 }
 
 const ImageGrid = (props) => {
     return (
-        <div>
-            {props.imageResults.map(image => <ImageBox handleImageClick={props.handleImageClick} key={image.id} {...image} />)}
-        </div>
+        <Grid>
+            <Row>
+                {props.imageResults.map(image => <ImageBox handleImageClick={props.handleImageClick} key={image.id} {...image} />)}
+            </Row>
+        </Grid>
     );
 }
 

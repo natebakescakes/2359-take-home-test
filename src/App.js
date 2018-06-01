@@ -70,7 +70,7 @@ class App extends React.Component {
 
     // Handles both Like and Unlike
     handleImageClick = (e) => {
-        let imageId = e.target.id;
+        let imageId = e.target.alt;
         
         e.preventDefault();
 
