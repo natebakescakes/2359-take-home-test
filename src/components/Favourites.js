@@ -1,10 +1,16 @@
 import React from 'react';
 
+import {
+    Grid,
+} from 'react-bootstrap';
+
 import ImageGrid from './ImageGrid';
 
 const Favourites = (props) => {
     return (
-        <ImageGrid handleImageClick={props.handleImageClick} imageResults={props.favouriteImages}/>
+        <Grid>
+            <ImageGrid handleImageClick={props.handleImageClick} imageResults={props.favouriteImages}/>
+        </Grid>
     );
 }
 

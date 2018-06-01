@@ -4,30 +4,42 @@ import {
     Grid,
     Row,
     Col,
+    ProgressBar,
     Thumbnail,
 } from 'react-bootstrap';
 
-const ImageBox = (props) => {
-    return (
-        <Col sm={6} md={4} lg={3}>
-            <Thumbnail 
-                className="img" 
-                id={props.id} 
-                alt={props.id} 
-                src={props.images.fixed_height_still.url} 
-                onClick={props.handleImageClick}
-            />
-        </Col>
-    );
+import Img from 'react-image';
+
+class ImageBox extends React.Component {
+    render() {
+        return (
+            <Col sm={6} md={4} lg={3}>
+                <Thumbnail> 
+                    <Img
+                        style={{
+                            'object-fit': 'cover',
+                            width: "100%",
+                            height: "200px",
+                        }}
+                        className="img" 
+                        id={this.props.id} 
+                        alt={this.props.title}
+                        src={this.props.images.fixed_height_still.url}
+                        onClick={this.props.handleImageClick}
+                        loader={<ProgressBar now={60} active/>}
+                        thumbnail="true"
+                    />
+                </Thumbnail>
+            </Col>
+        );
+    }
 }
 
 const ImageGrid = (props) => {
     return (
-        <Grid>
-            <Row>
-                {props.imageResults.map(image => <ImageBox handleImageClick={props.handleImageClick} key={image.id} {...image} />)}
-            </Row>
-        </Grid>
+        <Row>
+            {props.imageResults.map(image => <ImageBox handleImageClick={props.handleImageClick} key={image.id} {...image} />)}
+        </Row>
     );
 }
 

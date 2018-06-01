@@ -70,7 +70,7 @@ class App extends React.Component {
 
     // Handles both Like and Unlike
     handleImageClick = (e) => {
-        let imageId = e.target.alt;
+        let imageId = e.target.id;
         
         e.preventDefault();
 
@@ -123,10 +123,10 @@ class App extends React.Component {
                     </div>
                 </HashRouter>
 
-                <div className="container-fluid footer">
-                    <span className="text-muted text-left">Gallereasy POC web app</span>
-                    <span className="text-muted text-right">2359 Media</span>
-                </div>
+                <Navbar>
+                    <Navbar.Text>Gallereasy POC web app</Navbar.Text>
+                    <Navbar.Text pullRight>2359 Media</Navbar.Text>
+                </Navbar>
             </div>
         );
     }
