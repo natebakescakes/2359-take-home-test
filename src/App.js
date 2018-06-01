@@ -62,17 +62,20 @@ class App extends React.Component {
 
     // Handles both Like and Unlike
     handleImageClick = (e) => {
-        // let imageId = e.target.id;
+        let imageId = e.target.id;
         
-        // e.preventDefault();
+        e.preventDefault();
 
-        // // If selected image is found in favouriteImages, remove that image, else add it to favouriteImages
-        // this.setState((prevState) => ({
-        //     imageResults: (() => {
-        //         prevState.imageResults.find(image => image.Id === imageId).favourited = !prevState.imageResults.find(image => image.Id === imageId).favourited;
-        //         return prevState.imageResults;
-        //     })(),
-        // }));
+        // If selected image is found in favouriteImages, remove that image, else add it to favouriteImages
+        this.setState((prevState) => ({
+            imageResults: prevState.imageResults.map(image => {
+                if (image.id === imageId) image.favourited = !image.favourited;
+                return image;
+            }),
+            // favouriteImages: prevState.favouritedImages.filter(image => image.id === imageId).length > 0 ?
+            //     prevState.imageResults.filter(image => image.id === imageId) :
+            //     prevState.favouritedImages.filter(image => image.id !== imageId),
+        }));
 
         return;
     };
