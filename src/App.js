@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 
 import {
-    Col,
     Grid,
     Navbar,
     Nav,
@@ -133,8 +132,8 @@ class App extends React.Component {
                         width: '75%',
                         margin: 'auto',
                     }}>
-                        <span class="text-muted">Gallereasy POC web app</span>
-                        <span class="pull-right text-muted">2359 Media</span>
+                        <span className="text-muted">Gallereasy POC web app</span>
+                        <span className="pull-right text-muted">2359 Media</span>
                     </Row>
                 </Grid>
             </div>
