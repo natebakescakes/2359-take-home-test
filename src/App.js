@@ -68,10 +68,7 @@ class App extends React.Component {
         
         return axios({
             url: this.apiConstructor(),
-            onDownloadProgress: (progressEvent) => { 
-                console.log(progressEvent);
-                this.setState({ fetchingData: true });
-            }
+            onDownloadProgress: (progressEvent) => { this.setState({ fetchingData: true })}
         }).then(resp => {
                 this.setState((prevState) => ({ 
                     imageResults: prevState.imageResults.concat(resp.data.data.map(image => {

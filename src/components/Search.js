@@ -7,6 +7,8 @@ import {
 } from 'react-bootstrap';
 
 import ImageGrid from "./ImageGrid";
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faSpinner from '@fortawesome/fontawesome-free-solid/faSpinner';
 
 class Search extends React.Component {
     render() {
@@ -49,7 +51,7 @@ class Search extends React.Component {
                                 }}
                                 type="submit"
                                 onClick={this.props.handleFetchMore} 
-                                value={this.props.fetchingData ? "Loading..." : "Fetch More" }
+                                value={this.props.fetchingData ? <FontAwesomeIcon icon={faSpinner} /> : "Fetch More" }
                             />
                         </FormGroup>
                     }
