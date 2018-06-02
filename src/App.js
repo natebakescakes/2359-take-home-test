@@ -71,6 +71,7 @@ class App extends React.Component {
     // Handles both Like and Unlike
     handleImageClick = (e) => {
         let imageId = e.target.id;
+        console.log(e.target);
         
         e.preventDefault();
 

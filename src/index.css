@@ -1,0 +1,24 @@
+.content-details {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    text-align: center;
+    /* TODO: width property unable to default to 100% of container size */
+    width: 84%;
+    height: 200px;
+    padding: 45px;
+    opacity: 0;
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    -moz-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+    object-fit: cover,
+}
+
+.content-details:hover{
+    opacity: 1;
+}
+
+.content-details h1{
+    color: #e75a70;
+    font-weight: 500;
+    font-size: 5em; 
+}
