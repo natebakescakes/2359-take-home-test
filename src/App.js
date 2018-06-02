@@ -18,6 +18,8 @@ import {
 import Search from "./components/Search";
 import Favourites from "./components/Favourites";
 
+import './index.css';
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -33,6 +35,8 @@ class App extends React.Component {
     static resultSize = 8;
 
     handleQuerySubmit = (e) => {
+        e.preventDefault();
+
         let apiUrl = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY}&q=${this.state.query}&limit=${App.resultSize}&offset=${this.state.resultSet * App.resultSize}&rating=G&lang=en`;
 
         axios.get(apiUrl)
@@ -49,6 +53,8 @@ class App extends React.Component {
     }
 
     handleFetchMore = (e) => {
+        e.preventDefault();
+        
         let apiUrl = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY}&q=${this.state.query}&limit=${App.resultSize}&offset=${this.state.resultSet * App.resultSize}&rating=G&lang=en`;
 
         axios.get(apiUrl)
@@ -71,7 +77,6 @@ class App extends React.Component {
     // Handles both Like and Unlike
     handleImageClick = (e) => {
         let imageId = e.target.id;
-        console.log(e.target);
         
         e.preventDefault();
 

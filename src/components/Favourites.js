@@ -8,7 +8,7 @@ import ImageGrid from './ImageGrid';
 
 const Favourites = (props) => {
     return (
-        <Grid>
+        <Grid className="favourites">
             <ImageGrid handleImageClick={props.handleImageClick} imageResults={props.favouriteImages}/>
         </Grid>
     );
