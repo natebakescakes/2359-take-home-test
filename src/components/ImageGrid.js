@@ -51,7 +51,7 @@ class ImageBox extends React.Component {
                             }}
                             id={this.props.id} 
                             alt={this.props.title}
-                            src={this.props.images.fixed_height_still.url}
+                            src={this.props.images.fixed_height.url}
                             // TODO: Bind progress to axios onDownloadProgress config
                             loader={<ProgressBar now={Math.random() * 100} active/>}
                             thumbnail="true"

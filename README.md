@@ -33,3 +33,4 @@
 ## Future Improvements
 
 - UI element to allow users to choose API service
+- Toggle between GIFs and static images

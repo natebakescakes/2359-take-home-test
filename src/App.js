@@ -31,15 +31,20 @@ class App extends React.Component {
         };
     }
 
-    // Change this to modify number of images returned
-    static resultSize = 8;
+    // To use a different API, replace segments of the new api url with the 4 defined variables
+    apiConstructor = () => {
+        const API_KEY = () => { return process.env.REACT_APP_GIPHY; }
+        const QUERY = () => { return this.state.query; }
+        const RESULT_SIZE = 8;
+        const OFFSET = () => { return this.state.resultSet * RESULT_SIZE; }
+
+        return `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY()}&q=${QUERY()}&limit=${RESULT_SIZE}&offset=${OFFSET()}&rating=G&lang=en`;
+    }
 
     handleQuerySubmit = (e) => {
         e.preventDefault();
 
-        let apiUrl = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY}&q=${this.state.query}&limit=${App.resultSize}&offset=${this.state.resultSet * App.resultSize}&rating=G&lang=en`;
-
-        axios.get(apiUrl)
+        axios.get(this.apiConstructor())
         .then(resp => {
             this.setState((prevState) => ({ 
                 // Add favourited boolean to all image objects
@@ -55,9 +60,7 @@ class App extends React.Component {
     handleFetchMore = (e) => {
         e.preventDefault();
         
-        let apiUrl = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.REACT_APP_GIPHY}&q=${this.state.query}&limit=${App.resultSize}&offset=${this.state.resultSet * App.resultSize}&rating=G&lang=en`;
-
-        axios.get(apiUrl)
+        axios.get(this.apiConstructor())
         .then(resp => {
             this.setState((prevState) => ({ 
                 imageResults: prevState.imageResults.concat(resp.data.data.map(image => {
