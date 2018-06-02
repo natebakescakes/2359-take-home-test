@@ -49,7 +49,7 @@ class Search extends React.Component {
                                 }}
                                 type="submit"
                                 onClick={this.props.handleFetchMore} 
-                                value="Fetch More" 
+                                value={this.props.fetchingData ? "Loading..." : "Fetch More" }
                             />
                         </FormGroup>
                     }

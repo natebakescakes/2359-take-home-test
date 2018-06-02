@@ -28,7 +28,6 @@
 :heavy_check_mark: Unable to show hover overlay and click the element underneath at the same time
 :heavy_check_mark: Unable to submit form in IE11
 :x: Image cropping not working in IE11
-:x: Unsure of how to link UI elements to loading progress of ajax functions
 
 ## Future Improvements
 

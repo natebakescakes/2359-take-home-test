@@ -19,7 +19,7 @@ class ImageBox extends React.Component {
                     <div className="caption" style= {{ padding: '0px' }}>
                         {/* Hover overlay to favourite */}
                         {!this.props.favourited &&
-                            <div class="thumbnail__overlay"
+                            <div className="thumbnail__overlay"
                                 style={{ color: "#e75a70" }}
                                 onClick={this.props.handleImageClick}
                                 id={this.props.id}>
@@ -28,7 +28,7 @@ class ImageBox extends React.Component {
                         }
                         {/* Icon for favourited */}
                         {this.props.favourited && 
-                            <div class="thumbnail__overlay--favourited"
+                            <div className="thumbnail__overlay--favourited"
                                 style={{ color: "#e75a70" }}>
                                 <h1><FontAwesomeIcon icon={faHeart} /></h1>
                             </div>
@@ -36,7 +36,7 @@ class ImageBox extends React.Component {
 
                         {/* Hover overlay to unfavourite */}
                         {this.props.favourited &&
-                            <div class="thumbnail__overlay"
+                            <div className="thumbnail__overlay"
                                 style={{ color: 'white'}}
                                 onClick={this.props.handleImageClick}
                                 id={this.props.id}>
