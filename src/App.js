@@ -99,10 +99,10 @@ class App extends React.Component {
             <div>
                 <HashRouter>
                     <Navbar>
-                        <Navbar.Header><Navbar.Brand>Gallereasy</Navbar.Brand></Navbar.Header>
+                        <Navbar.Header><Navbar.Brand>Galler<b>easy</b></Navbar.Brand></Navbar.Header>
                         <Nav bsStyle="pills">
                             <NavItem><NavLink to="/search">Search</NavLink></NavItem>
-                            <NavItem><NavLink to="/favourites">Favourites</NavLink></NavItem>
+                            <NavItem><NavLink to="/favourites">Favourites ({this.state.favouriteImages.length})</NavLink></NavItem>
                         </Nav>
                     </Navbar>
                 </HashRouter>
