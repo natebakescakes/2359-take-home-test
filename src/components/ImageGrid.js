@@ -46,14 +46,23 @@ class ImageBox extends React.Component {
                         <Img
                             style={{
                                 objectFit: 'cover',
-                                width: "100%",
-                                height: "200px",
+                                width: '100%',
+                                height: '200px',
                             }}
                             id={this.props.id} 
                             alt={this.props.title}
                             src={this.props.images.fixed_height.url}
-                            // TODO: Bind progress to axios onDownloadProgress config
-                            loader={<ProgressBar now={Math.random() * 100} active/>}
+                            loader={
+                                <div style={{
+                                    objectFit: 'cover', 
+                                    width: '100%', 
+                                    height: '200px',
+                                    paddingTop: '90px',
+                                }}>
+                                {/* TODO: Bind progress to axios onDownloadProgress config */}
+                                    <ProgressBar now={Math.random() * 100} active />
+                                </div>
+                            }
                             thumbnail="true"
                         />
                     </div>

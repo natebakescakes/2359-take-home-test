@@ -20,7 +20,7 @@ class Search extends React.Component {
                                     width: "75%",
                                     margin: "auto",
                                 }}
-                                type="text" 
+                                type="input" 
                                 onChange={this.props.handleTextChange}
                                 value={this.props.query}
                                 placeholder="Start searching for images!"

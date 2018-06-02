@@ -24,11 +24,11 @@
 
 ## Issues Faced
 
-[X] Favourite overlay unable to adhere to parent width (React bootstrap Thumbnail module)
-[X] Unable to show hover overlay and click the element underneath at the same time
-[X] Unable to submit form in IE11
-[ ] Image cropping not working in IE11
-[ ] Unsure of how to link UI elements to loading progress of ajax functions
+:heavy_check_mark: Favourite overlay unable to adhere to parent width (React bootstrap Thumbnail module)
+:heavy_check_mark: Unable to show hover overlay and click the element underneath at the same time
+:heavy_check_mark: Unable to submit form in IE11
+:x: Image cropping not working in IE11
+:x: Unsure of how to link UI elements to loading progress of ajax functions
 
 ## Future Improvements
 
