@@ -27,7 +27,11 @@ class Search extends React.Component {
                             />
                             <FormControl
                                 type="submit" 
-                                style={{ display: "none" }}
+                                style={{ 
+                                    height: '0px',
+                                    width: '0px',
+                                    opacity: '0',
+                                 }}
                                 onClick={this.props.handleQuerySubmit} 
                                 value="API_GET"
                             />
