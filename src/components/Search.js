@@ -12,7 +12,7 @@ class Search extends React.Component {
     render() {
         return (
             <div>
-                <Grid>
+                <Grid className="search">
                     <FormGroup>
                         <form>
                             <FormControl
