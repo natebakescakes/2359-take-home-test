@@ -1,38 +1,55 @@
 import React from 'react';
 
+import {
+    FormGroup,
+    FormControl,
+    Grid,
+} from 'react-bootstrap';
+
 import ImageGrid from "./ImageGrid";
 
 class Search extends React.Component {
     render() {
         return (
             <div>
-                <form className="form-group">
-                    <input 
-                        className="form-control" 
-                        type="text" 
-                        onChange={this.props.handleTextChange}
-                        value={this.props.query}
-                        placeholder="Start searching for images!"
-                    />
-                    <input 
-                        type="submit" 
-                        style={{ display: "none" }}
-                        onClick={this.props.handleQuerySubmit} 
-                        value="API_GET"
-                    />
-                </form>
+                <Grid>
+                    <FormGroup>
+                        <form>
+                            <FormControl
+                                style={{
+                                    width: "75%",
+                                    margin: "auto",
+                                }}
+                                type="text" 
+                                onChange={this.props.handleTextChange}
+                                value={this.props.query}
+                                placeholder="Start searching for images!"
+                            />
+                            <FormControl
+                                type="submit" 
+                                style={{ display: "none" }}
+                                onClick={this.props.handleQuerySubmit} 
+                                value="API_GET"
+                            />
+                        </form>
+                    </FormGroup>
 
-                <ImageGrid handleImageClick={this.props.handleImageClick} imageResults={this.props.imageResults} />
+                    <ImageGrid handleImageClick={this.props.handleImageClick} imageResults={this.props.imageResults} />
 
-                {this.props.imageResults.length > 0 &&
-                    <form className="form-group">
-                        <input 
-                            type="submit"
-                            className="btn btn-primary"
-                            onClick={this.props.handleFetchMore} 
-                            value="Fetch More" />
-                    </form>
-                }
+                    {this.props.imageResults.length > 0 &&
+                        <FormGroup>
+                            <FormControl
+                                style={{
+                                    width: "50%",
+                                    margin: "auto",
+                                }}
+                                type="submit"
+                                onClick={this.props.handleFetchMore} 
+                                value="Fetch More" 
+                            />
+                        </FormGroup>
+                    }
+                </Grid>
             </div>
         );
     }
