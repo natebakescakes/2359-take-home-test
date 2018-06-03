@@ -5,6 +5,7 @@ import {
     Route,
     HashRouter,
     NavLink,
+    Switch,
 } from "react-router-dom";
 
 import {
@@ -19,6 +20,7 @@ import Search from "./components/Search";
 import Favourites from "./components/Favourites";
 
 import './index.css';
+import { ErrorApi, ErrorPage } from './components/Error';
 
 class App extends React.Component {
     constructor(props) {
@@ -29,6 +31,7 @@ class App extends React.Component {
             favouriteImages: [],
             resultSet: 0,
             fetchingData: false,
+            hasError: false,
         };
     }
 
@@ -46,16 +49,36 @@ class App extends React.Component {
         e.preventDefault();
 
         axios.get(this.apiConstructor())
-        .then(resp => {
-            this.setState((prevState) => ({ 
-                // Add favourited boolean to all image objects
-                imageResults: resp.data.data.map(image => {
-                    image.favourited = false;
-                    return image;
-                }),
-                resultSet: 1,  
-            }));
-        });
+            .then(resp => {
+                this.setState((prevState) => ({ 
+                    // Add favourited boolean to all image objects
+                    imageResults: resp.data.data.map(image => {
+                        image.favourited = false;
+                        return image;
+                    }),
+                    resultSet: 1,  
+                }));
+            })
+            .catch(error => {
+                this.setState({ hasError: true });
+
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js
+                    console.log(error.request);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', error.message);
+                }
+                console.log(error.config);
+            });
     }
 
     handleFetchMore = (e) => {
@@ -75,7 +98,8 @@ class App extends React.Component {
                     resultSet: prevState.resultSet + 1,  
                     fetchingData: false,
                 }));
-            });
+            })
+        
     }
     
     handleTextChange = (e) => {
@@ -104,6 +128,8 @@ class App extends React.Component {
     };
 
     render() {
+        if (this.state.hasError) return ( <ErrorApi /> )
+
         return (
             <div>
                 <HashRouter>
@@ -118,23 +144,26 @@ class App extends React.Component {
 
                 <HashRouter>
                     <div className="content">
-                        <Route exact path="/" render={() => <Search
-                            query={this.state.query} 
-                            handleImageClick={this.handleImageClick} 
-                            handleTextChange={this.handleTextChange}
-                            handleFetchMore={this.handleFetchMore}
-                            handleQuerySubmit={this.handleQuerySubmit}
-                            imageResults={this.state.imageResults} />} />
-                        <Route path="/search" render={() => <Search 
-                            query={this.state.query} 
-                            handleImageClick={this.handleImageClick} 
-                            handleTextChange={this.handleTextChange}
-                            handleFetchMore={this.handleFetchMore}
-                            handleQuerySubmit={this.handleQuerySubmit}
-                            imageResults={this.state.imageResults} />} />
-                        <Route path="/favourites" render={() => <Favourites 
-                            favouriteImages={this.state.favouriteImages}
-                            handleImageClick={this.handleImageClick} />} />
+                        <Switch>
+                            <Route exact path="/" render={() => <Search
+                                query={this.state.query} 
+                                handleImageClick={this.handleImageClick} 
+                                handleTextChange={this.handleTextChange}
+                                handleFetchMore={this.handleFetchMore}
+                                handleQuerySubmit={this.handleQuerySubmit}
+                                imageResults={this.state.imageResults} />} />
+                            <Route path="/search" render={() => <Search 
+                                query={this.state.query} 
+                                handleImageClick={this.handleImageClick} 
+                                handleTextChange={this.handleTextChange}
+                                handleFetchMore={this.handleFetchMore}
+                                handleQuerySubmit={this.handleQuerySubmit}
+                                imageResults={this.state.imageResults} />} />
+                            <Route path="/favourites" render={() => <Favourites 
+                                favouriteImages={this.state.favouriteImages}
+                                handleImageClick={this.handleImageClick} />} />
+                            <Route component={() => <ErrorPage />} />
+                        </Switch>
                     </div>
                 </HashRouter>
 

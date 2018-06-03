@@ -1,5 +1,10 @@
 # 2359 Take Home Assignment
 
+## Instructions
+
+1. `npm install`
+2. `npm start`
+
 ## Requirements
 
 ### Basic
