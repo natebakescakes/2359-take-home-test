@@ -28,7 +28,6 @@ class App extends React.Component {
             imageResults: [],
             favouriteImages: [],
             resultSet: 0,
-            fetchingData: false,
         };
     }
 
@@ -45,26 +44,21 @@ class App extends React.Component {
     handleQuerySubmit = (e) => {
         e.preventDefault();
 
-        return axios({
-            url: this.apiConstructor(),
-            onDownloadProgress: (progressEvent) => { this.setState({ fetchingData: true })}
-        }).then(resp => {
-                this.setState((prevState) => ({ 
-                    // Add favourited boolean to all image objects
-                    imageResults: resp.data.data.map(image => {
-                        image.favourited = false;
-                        return image;
-                    }),
-                    resultSet: prevState.resultSet + 1,  
-                    fetchingData: false,
-                }));
-            });
+        axios.get(this.apiConstructor())
+        .then(resp => {
+            this.setState((prevState) => ({ 
+                // Add favourited boolean to all image objects
+                imageResults: resp.data.data.map(image => {
+                    image.favourited = false;
+                    return image;
+                }),
+                resultSet: prevState.resultSet + 1,  
+            }));
+        });
     }
 
     handleFetchMore = (e) => {
         e.preventDefault();
-
-        if (this.state.fetchingData) { return }
         
         return axios({
             url: this.apiConstructor(),
@@ -126,7 +120,6 @@ class App extends React.Component {
                             handleImageClick={this.handleImageClick} 
                             handleTextChange={this.handleTextChange}
                             handleFetchMore={this.handleFetchMore}
-                            fetchingData={this.state.fetchingData}
                             handleQuerySubmit={this.handleQuerySubmit}
                             imageResults={this.state.imageResults} />} />
                         <Route path="/search" render={() => <Search 
@@ -134,7 +127,6 @@ class App extends React.Component {
                             handleImageClick={this.handleImageClick} 
                             handleTextChange={this.handleTextChange}
                             handleFetchMore={this.handleFetchMore}
-                            fetchingData={this.state.fetchingData}
                             handleQuerySubmit={this.handleQuerySubmit}
                             imageResults={this.state.imageResults} />} />
                         <Route path="/favourites" render={() => <Favourites 
