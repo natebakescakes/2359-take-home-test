@@ -28,6 +28,7 @@ class App extends React.Component {
             imageResults: [],
             favouriteImages: [],
             resultSet: 0,
+            fetchingData: false,
         };
     }
 
@@ -52,17 +53,19 @@ class App extends React.Component {
                     image.favourited = false;
                     return image;
                 }),
-                resultSet: prevState.resultSet + 1,  
+                resultSet: 1,  
             }));
         });
     }
 
     handleFetchMore = (e) => {
         e.preventDefault();
+
+        this.setState({ fetchingData: true });
         
         return axios({
             url: this.apiConstructor(),
-            onDownloadProgress: (progressEvent) => { this.setState({ fetchingData: true })}
+            // onDownloadProgress: (progressEvent) => { this.setState({ fetchingData: true })}
         }).then(resp => {
                 this.setState((prevState) => ({ 
                     imageResults: prevState.imageResults.concat(resp.data.data.map(image => {
