@@ -27,7 +27,7 @@
 - :heavy_check_mark: Favourite overlay unable to adhere to parent width (React bootstrap Thumbnail module)
 - :heavy_check_mark: Unable to show hover overlay and click the element underneath at the same time
 - :heavy_check_mark: Unable to submit form in IE11
-- :heavy_check_mark: Fetch More button should not work if previous data has not loaded
+- :x: Fetch More button should not work if previous data has not loaded
 - :x: Image cropping not working in IE11
 
 ## Future Improvements
